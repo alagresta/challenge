@@ -1,1 +1,19 @@
-There is nothing here
+<div>
+  <div
+    *ngFor="let entity of entites"
+    style="padding: 24px; border: 1px solid black; margin-bottom: 24px"
+  >
+    <div>
+      {{ entity.name }}
+      <div *ngIf="entity.rating != undefined">
+        {{ entity.rating }}
+      </div>
+      <div>
+        <img [src]="entity.image" width="50" height="50" />
+        <div *ngIf="entity.content != undefined">
+          {{ entity.content }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

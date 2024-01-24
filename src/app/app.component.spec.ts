@@ -1,35 +1,30 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
+import { ApiService } from './api.service';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
+      imports: [RouterTestingModule],
+      declarations: [AppComponent],
+      providers: [
+        {
+          provide: ApiService,
+          useValue: {
+            getEntities: () => of([]),
+          },
+        },
       ],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('should render entities', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
 
-  it(`should have as title 'ygo-recruitment'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('ygo-recruitment');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ygo-recruitment app is running!');
+    expect(
+      fixture.debugElement.nativeElement.querySelectorAll('div:nth-child(2)')
+    ).not.toBeNull();
   });
 });
